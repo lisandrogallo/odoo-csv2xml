@@ -45,11 +45,12 @@ for csvFileName in csvFiles:
     xmlData.write('<openerp>' + '\n')
     xmlData.write(TAB + '<data noupdate="0">' + '\n')
 
+    basename = path.basename(csvFileName)
 
     for row in csvData:
-        rowData = row.strip().split(delimiter)
-        xmlData.write('\n' + tab*2 + '<record id="' + rowData[0] +
-                      '" model="' + csvFileName[:-4] + '">' + '\n')
+        rowData = row.strip().split(DELIMITER)
+        xmlData.write('\n' + TAB*2 + '<record id="' + rowData[0] +
+                      '" model="' + basename[:-4] + '">' + '\n')
 
         for i in range(1, len(tags)):
 
