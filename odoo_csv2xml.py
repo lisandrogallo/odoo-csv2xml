@@ -11,8 +11,10 @@ DELIMITER = ","
 # 4 spaces tabulation
 TAB = 4 * ' '
 
+
 def reference_match(field, regex=re.compile(r'([a-z]*_id\/id)$')):
     return regex.match(field)
+
 
 # The optional command-line argument maybe a CSV file or a folder
 if len(sys.argv) == 2:
@@ -49,22 +51,22 @@ for csvFileName in csvFiles:
 
     for row in csvData:
         rowData = row.strip().split(DELIMITER)
-        xmlData.write('\n' + TAB*2 + '<record id="' + rowData[0] +
+        xmlData.write('\n' + TAB * 2 + '<record id="' + rowData[0] +
                       '" model="' + basename[:-4] + '">' + '\n')
 
         for i in range(1, len(tags)):
 
             if tags[i]:
                 if reference_match(tags[i]) and rowData[i]:
-                    xmlData.write(TAB*3 + '<field name="' +
+                    xmlData.write(TAB * 3 + '<field name="' +
                                   tags[i].split('/', 1)[0] +
                                   '"' + ' ref="' + rowData[i] + '"/>' + '\n')
                 else:
-                    xmlData.write(TAB*3 + '<field name="' +
+                    xmlData.write(TAB * 3 + '<field name="' +
                                   tags[i].split('/', 1)[0] +
                                   '">' + rowData[i] + '</field>' + '\n')
 
-        xmlData.write(TAB*2 + '</record>' + '\n')
+        xmlData.write(TAB * 2 + '</record>' + '\n')
 
     xmlData.write('\n' + TAB + '</data>' + '\n')
     xmlData.write('</openerp>' + '\n')
